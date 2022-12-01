@@ -1,0 +1,17 @@
+{% extends 'training/base.html' %}
+
+{% block title %}TRAINING MANAGEMENT{% endblock title %}
+
+{% block content %}
+
+  <p> welcome {{user.username}}</p>
+  <p> Please Select One of Below Option to Continue :  </p>
+  <a class="btn btn-primary" href="{% url 'training:training-list-view' %}" role="button">Continue as Trainee</a>
+  <br>
+  <br>
+  <a class="btn btn-primary" href="#" role="button">Continue as Trainer <span style="color:red">--- under development</span></a>
+  <br>
+  <br>
+  <a class="btn btn-primary" href="#" role="button">Continue as HR <span style="color:red">--- under development</span></a>
+
+{% endblock content %}

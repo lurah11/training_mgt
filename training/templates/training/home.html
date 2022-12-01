@@ -1,0 +1,26 @@
+{% extends 'training/base.html' %}
+
+{% block title %} TRAINING MANAGEMENT{% endblock title %}
+
+{% block content %}
+  <h1 id = 'welcome_banner'>WELCOME TO  TRAINING MANAGEMENT WEB APP</h1>
+  <form id = 'training_mgt_login_form' method="post" action="{% url 'training:login-view' %}">
+    {% csrf_token %}
+    {% if error %}
+      <p style="color:red">{{error}}</p>
+    {% endif %}
+  <div class="form-group">
+    <label for="employee_login_username">Username</label>
+    <br>
+    <input type="text" class="form_control_login" id="employee_login_username" name="employee_login_username">
+  </div>
+  <div class="form-group">
+    <label for="employee_login_pw">Password</label>
+    <br>
+    <input type="password" class="form_control_login" id="employee_login_pw" name="employee_login_pw">
+  </div>
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+<p> or </p>
+<a href="{% url 'training:register-view' %}">Register</a>
+{% endblock content %}

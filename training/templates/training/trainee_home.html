@@ -1,0 +1,42 @@
+{% extends 'training/base.html' %}
+
+{% block title %}TRAINING MANAGEMENT{% endblock title %}
+
+{% block content %}
+  <h2>TRAINEE HOME PAGE</h2>
+  <p> welcome {{user.username}} </p>
+  <a href="{% url 'training:training-list-view' %}">Go To Training List</a>
+  <p> Your Training History : </p>
+  <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Title</th>
+      <th>Trainer</th>
+      <th>start date</th>
+      <th>end date </th>
+      <th>date taken</th>
+      <th>status</th>
+      <th>was retaken</th>
+      <th>detail</th>
+   </tr>
+  </thead>
+  <tbody>
+   {% for t in t_inst %}
+      <tr>
+       <td>{{forloop.counter}}</td>
+       <td>{{t.training__title}}</td>
+       <td>{{t.training__trainer__user__username}}</td>
+       <td>{{t.training__start_date}}
+       <td>{{t.training__end_date}}</td>
+       <td>{{t.date}}</td>
+       <td style = "{% if t.status == 'passed' %}color:blue{% elif t.status == 'failed' %}color:red{% else %}color:black{% endif%}">{{t.status}}</td>
+       <td>{% if t.is_retake %} Yes {% else %} No {% endif%}</td>
+       <td><a href="{% url 'training:training-detail-view' t.training__id %}">Detail</a></td>
+      </tr>
+   {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock content %}

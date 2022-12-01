@@ -1,0 +1,50 @@
+{% extends 'training/base.html' %}
+
+{% block title %}TRAINING MANAGEMENT{% endblock title %}
+
+{% block content %}
+
+  <p>Welcome to the Evaluation for {{t.title}}</p>
+    {% if not eval_not_exist %}
+    <p> The Time Limit Is <span style="color:red">{{t.time_limit}} minutes</span>  </p>
+    <p> Your time is <span id = 'span_timer'></span> seconds remaining </p>
+    <form method="post" action ="{% url 'training:score-view' t.id %}" id='form_evaluation_submit'>
+      {% csrf_token %}
+      <ol style="list-style-type:decimal">
+        {% for q in q_s %}
+          <li>{{q.question}}</li>
+            <ol style="list-style-type:lower-alpha">
+              {% for x in q.answer_set.all %}
+              <input class='radio_button_answer' type="radio" id="{{x.id}}" name="answer_for_{{q.id}}" value="{{x.id}}">
+              <label for="{{x.id}}">{{x.answer_text}}</label><br>
+              {% endfor %}
+            </ol>
+        {% endfor %}
+      </ol>
+      <button type="submit" class="btn btn-primary">Submit Answer</button>
+    </form>
+    {% else %}
+  <p>There is no Post Test Available for this Training , Do You understand the content of Training?</p>
+    <form class="" action="{% url 'training:no-post-test-view' t.id %}" >
+        <input style="background-color:green" type="submit" name="understand_the_training" value="Yes">
+        <input style="background-color:red" type="submit" name="not_understand_the_training" value="No">
+    </form>
+  {% endif %}
+  <script type="text/javascript">
+    let timelimit = parseInt({{t.time_limit}}*60);
+    let timepassed = 0 ;
+    let timeleft = 0;
+    const timer = document.getElementById('span_timer');
+    let timerfunc = setInterval((timeleft)=>{
+      timeleft = timelimit-timepassed
+      timer.innerHTML = timeleft;
+      timepassed +=1;
+      if (timeleft===0) {
+        clearInterval(timerfunc)
+        document.getElementById('form_evaluation_submit').submit()
+      }
+    },1000)
+
+
+  </script>
+{% endblock content %}

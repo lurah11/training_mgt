@@ -1,0 +1,4 @@
+  {% if user.is_authenticated %}
+    <p style="text-align:right">You are logged in as : <span style = "color:blue" >{{user.username}}</span></p>
+    <p style="text-align:right"><a style="color:red" href="{% url 'training:logout-view'%}">Logout</a></p>
+  {% endif %}

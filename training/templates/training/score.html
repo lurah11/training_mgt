@@ -1,0 +1,13 @@
+{% extends 'training/base.html' %}
+
+{% block title %}TRAINING MANAGEMENT{% endblock title %}
+
+{% block content %}
+  <p> Dear {{user}}, your score is : </p>
+  <p style="color:blue"> {{score}}</p>
+  <p> And you : </p>
+  <p style = "color:blue"> {% if status %} Passed This Training {% endif %} </p>
+  <p style = "color:red"> {% if not status %} Failed This Training {% endif %} </p>
+  <a href="{% url 'training:training-list-view' %}">Back To Home</a>
+
+{% endblock content %}

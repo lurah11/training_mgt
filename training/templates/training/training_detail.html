@@ -1,0 +1,69 @@
+{% extends 'training/base.html' %}
+
+{% block title %} TRAINING MANAGEMENT{% endblock title %}
+
+{% block content %}
+
+  <p>The Training Detail : </p>
+  <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Item</th>
+      <th>Value</th>
+    <tr>
+  </thead>
+  <tbody>
+    <tr>
+     <td>1</td>
+     <td>Title</td>
+     <td>{{t.title}}</td>
+    </tr>
+    <tr>
+     <td>2</td>
+     <td>Trainer</td>
+     <td>{{t.trainer.user.username}} ({{t.trainer.department}})</td>
+    </tr>
+    <tr>
+     <td>3</td>
+     <td>Description</td>
+     <td>{{t.description}}</td>
+    </tr>
+    <tr>
+     <td>4</td>
+     <td>Material</td>
+     <td> <a href="{{t.material.url}}">download training material</a></td>
+    </tr>
+    <tr>
+     <td>5</td>
+     <td>Last_Modified</td>
+     <td>{{t.modified}}</td>
+    </tr>
+    <tr>
+     <td>6</td>
+     <td>Passing Grade</td>
+     <td>{{t.pass_grade}}</td>
+    </tr>
+    <tr>
+     <td>7</td>
+     <td>Post Test Time Limits</td>
+     <td>{{t.time_limit}} minutes</td>
+    </tr>
+    <tr>
+     <td>8</td>
+     <td>Your Score</td>
+     <td style="{% if t_instance.status == 'passed'%} color:blue {% else %} color:red {% endif %}">{{t_instance.eval_score}}</td>
+    </tr>
+    <tr>
+     <td>9</td>
+     <td>Status</td>
+     <td>{{t_instance.status}}</td>
+    </tr>
+  </tbody>
+</table>
+<p> Post Test is  {% if eval %} <em style="color:blue"> Available </em> {% else %} <em style="color:red"> Not Available </em> {% endif %}  </p>
+<p>Take or Retake this training? <em style="color:red"> Warning: by clicking link below, you will be redirected to either post test page ( if available) or finish page (if not available)</em></p>
+<a href="{% url 'training:evaluation-view' t.id %}">
+  {{do_training}}
+</a>
+{% endblock content %}

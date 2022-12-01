@@ -1,0 +1,45 @@
+{% extends 'training/base.html' %}
+
+{% block title %}TRAINING MANAGEMENT{% endblock title %}
+
+{% block content %}
+  <h1 id = 'welcome_banner'>REGISTRATION PAGE</h1>
+  <p style = "color:red">{{user_exist}}</p>
+  <p style = "color:red">{{username_error}}</p>
+  {% if success %}
+  <p style = "color:blue">{{success}}</p>
+  <a href="{% url 'training:login-view' %}">go back to login page</a>
+  {% endif %}
+  <form id = 'training_mgt_register_form' method='post' action='{% url 'training:register-view' %}'>
+    {% csrf_token %}
+  <div class="form-group">
+    <label for="employee_register_username">Username</label>
+    <br>
+    <input type="text" class="form_control_login" id="employee_register_username" name="employee_register_username">
+  </div>
+  <div class="form-group">
+    <label for="employee_register_email">Email</label>
+    <br>
+    <input type="email" class="form_control_login" id="employee_register_email" name="employee_register_email">
+  </div>
+  <div class="form-group">
+    <label for="employee_register_pw">Password</label>
+    <br>
+    <input type="password" class="form_control_login" id="employee_register_pw" name="employee_register_pw">
+  </div>
+  <div class="form-group">
+    <label for="employee_register_department">Departement</label>
+    <br>
+    <select name="employee_register_department" id="employee_register_department" name="employee_register_department">
+      {% for dept in department %}
+      <option value="{{dept}}">{{dept}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Register</button>
+
+  {% if error %}
+    <p style="color:red">{{error}}</p>
+  {% endif %}
+</form>
+{% endblock content %}

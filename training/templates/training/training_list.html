@@ -1,0 +1,36 @@
+{% extends 'training/base.html' %}
+
+{% block title %}TRAINING MANAGEMENT{% endblock title %}
+
+{% block content %}
+  <H2>TRAINING LIST</H2>
+  <p> welcome {{user.username}} </p>
+  <a href="{% url 'training:trainee-home-view' %}">Check Your Training History here</a>
+
+  <p> Here are The Training List : </p>
+  <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Title</th>
+      <th>Trainer</th>
+      <th>start date</th>
+      <th>end date </th>
+      <th>detail</th>
+   </tr>
+  </thead>
+  <tbody>
+   {% for t in tl %}
+      <tr>
+       <td>{{forloop.counter}}</td>
+       <td>{{t.title}}</td>
+       <td>{{t.trainer.user.username}}</td>
+       <td>{{t.start_date}}
+       <td>{{t.end_date}}</td>
+       <td><a href="{% url 'training:training-detail-view' t.id %}">Detail</a></td>
+      </tr>
+   {% endfor %}
+
+  </tbody>
+</table>
+{% endblock content %}

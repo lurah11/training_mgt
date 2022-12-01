@@ -1,0 +1,11 @@
+#welcome_banner {
+  text-align: center;
+  color: red;
+  font-size: 20;
+}
+.form_control_login{
+  width: 40%;
+}
+#training_mgt_login_form{
+  margin-top: 100px;
+}
